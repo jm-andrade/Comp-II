@@ -1,39 +1,76 @@
+import java.sql.Array;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Principal {
-
     public static void main(String[] args) {
-        Pessoa fulano = new Pessoa("Fulano de Tal", 12345678);
-        fulano.setEndereco("Rua BlaBLaBla, numero tal");
-
-        Agencia agencia = new Agencia();;
-        ContaCorrente minhaConta = new ContaCorrente(1, fulano, agencia);
-        ContaCorrente minhaConta2 = new ContaCorrente(2, fulano, agencia);
-        System.out.println("saldo: ");
-        System.out.println(minhaConta.getSaldoEmReais());
-        // deposito de 5k
-        minhaConta.depositar(5000);
-        System.out.println("Deposito: ");
-        System.out.println("Saldo"+ minhaConta.getSaldoEmReais());
-        System.out.println("saldo: ");
-
-        System.out.println(minhaConta.getSaldoEmReais());
+        ArrayList<ContaCorrente>contas=new ArrayList();
+        ArrayList<Pessoa>fulano=new ArrayList();
 
 
-        boolean o = minhaConta.GetSaque(2000);
-        if (o==true)
-            System.out.println("Saque efetuado de 2k!");
-        else
-            System.out.println("Saldo insuficiente");
-        System.out.println("saldo: ");
-        System.out.println(minhaConta.getSaldoEmReais());
-        // tansferencia
-        boolean a = minhaConta.transferir(200,  minhaConta2);
-        if (a == false){
-            System.out.println("O valor da tansferencia é insuficiente");
-            System.out.println("saldo" +minhaConta.getSaldoEmReais());
+        char s ='z';
+        Scanner src = new Scanner(System.in);
+        while (s!='x'){
+            System.out.println("Bem vindo ao JM bank");
+            System.out.println("Qual sua opção: ");
+            System.out.println("(D)epositar\n" +
+                    "   (S)acar\n" +
+                    "   (T)ransferir\n" +
+                    "   (C)onsultar saldo\n" +
+                    "   Cadastrar (P)essoa como correntista\n" +
+                    "   Criar (N)ova conta\n" +
+                    "   (X) para sair\n" +
+                    "\n"+
+                    "   Opção desejada:");
+            s=src.next().charAt(0);
+
+            if (s=='d') // depositar
+            {
+
+            }
+            if (s=='s')// sacar
+            {
+
+            }
+            if (s=='t')// transferir
+            {
+
+            }
+            if (s=='c')//consultar saldo
+            {
+
+            }
+            if (s=='p')// cadastrar pessoa como correntista
+            {
+                System.out.println("Digite seu nome: ");
+                String nome =src.nextLine();
+
+                System.out.println("Digite seu cpf: ");
+                Long cpf =src.nextLong();
+
+                int n = fulano.size();
+                for (int i=0; i<n; i++){
+                    if (fulano.get(i).getCpf()==cpf)
+                        System.out.println("usuario ja existe");
+                    else{
+                        Pessoa pessoa = new Pessoa(nome, cpf);
+                        fulano.add(pessoa);
+                        System.out.println("Pessoa criada");
+                    }
+
+
+
+                }
+            }
+            if (s=='n')// criar nova conta
+            {
+                System.out.println("Digite o numero da conta: ");
+                long numero=src.nextLong();
+            }
+            else {
+                System.out.println("opção  invalida");
+            }
         }
-        else
-            System.out.println("seu saldo é: " + minhaConta.getSaldoEmReais());
-
-        System.out.println(fulano);
     }
 }
