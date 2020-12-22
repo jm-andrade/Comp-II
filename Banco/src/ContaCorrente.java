@@ -3,6 +3,11 @@ import java.util.Date;
 
 public class ContaCorrente {
 
+    // o banco já te dá algo como estímulo :-)
+    public static final float SALDO_INICIAL_DE_NOVAS_CONTAS = 10.0f;
+
+    private static long contador;
+
     private final long numeroDaConta;
 
     private final Agencia agencia;
@@ -17,13 +22,18 @@ public class ContaCorrente {
 
     private ArrayList<String> historicoDeOperacoes;
 
-    public ContaCorrente(long numeroDaConta, Pessoa correntista, Agencia agencia) {
+    public ContaCorrente(Pessoa correntista, Agencia agencia) {
         this.historicoDeOperacoes = new ArrayList<>();
         this.dataDeCriacao = new Date();  // data corrente
-        this.saldoEmReais = 10;  // o banco dá 10 reais de estímulo para a abertura de conta
-        this.numeroDaConta = numeroDaConta;
+        this.saldoEmReais = SALDO_INICIAL_DE_NOVAS_CONTAS;
+        this.contador++;
+        this.numeroDaConta = this.contador;
         this.correntista = correntista;
         this.agencia = agencia;
+    }
+
+    public long getNumeroDaConta() {
+        return numeroDaConta;
     }
 
     public float getSaldoEmReais() {  // getter (métodos de acesso para leitura)
@@ -39,8 +49,25 @@ public class ContaCorrente {
         // altera o saldo
         saldoEmReais += valor;
 
-        historicoDeOperacoes.add("Deposito em dinheiro: " + valor +
-                "na data " + new Date());
+        historicoDeOperacoes.add(String.format("Deposito em dinheiro: R$%.2f na data %s", valor, new Date()));
+    }
+
+    public void sacar(float valor) {
+        // valida o parâmetro
+        if (valor <= 0) {
+            return;  // ToDo lançar uma exceção!!!!
+        }
+
+        // verifica se há fundos na conta
+        if (valor > saldoEmReais) {
+            return;  // ToDo lançar uma exceção!!!!
+        }
+
+        saldoEmReais -= valor;
+
+        historicoDeOperacoes.add(String.format(
+                "Saque em dinheiro: R$%.2f na data %s",
+                valor, new Date()));
     }
 
     /**
@@ -50,21 +77,48 @@ public class ContaCorrente {
      * @param valor o valor desejado
      * @param contaDestino a conta de destino
      */
-    public boolean transferir(float valor, ContaCorrente contaDestino) {
-        if (valor>this.saldoEmReais)
-                return false;
-        this.saldoEmReais = this.saldoEmReais-valor;
+    public void transferir(float valor, ContaCorrente contaDestino) {
+        // valida o parâmetro
+        if (valor <= 0) {
+            return;  // ToDo lançar uma exceção!!!!
+        }
+
+        // verifica se há fundos na conta
+        if (valor > saldoEmReais) {
+            return;  // ToDo lançar uma exceção!!!!
+        }
+
+        saldoEmReais -= valor;
         contaDestino.saldoEmReais += valor;
-        historicoDeOperacoes.add("Transferencia para conta:" +contaDestino+  "Concluida" +
-                "no dia" + new Date());
-        return true;
+
+        historicoDeOperacoes.add(String.format(
+                "Transferência efetuada para a conta %d: R$%.2f na data %s",
+                contaDestino.numeroDaConta, valor, new Date()));
+
+        contaDestino.historicoDeOperacoes.add(String.format(
+                "Transferência recebida da conta %d: R$%.2f na data %s",
+                this.numeroDaConta, valor, new Date()));
     }
-    public boolean GetSaque (float valor){
-    if (this.saldoEmReais < valor)
-        return false;
-    this.saldoEmReais = this.saldoEmReais - valor;
-    historicoDeOperacoes.add("Saque em conta corrente: R$" + valor+
-            "na data " + new Date());
-    return true;
+
+    public void printContaCorrente() {
+        System.out.println(
+                "   Numero da conta: " + this.numeroDaConta +
+                        "   Saldo em reais: " + this.saldoEmReais +
+                        "   Contador: " + this.contador
+        );
+    }
+
+    public void printUltimaOperacao(int quantidadeDelinhas) {
+        if(quantidadeDelinhas < 0) {
+            quantidadeDelinhas = 1;
+        }
+
+        String pulaLinha = "";
+
+        for(int i=0; i<quantidadeDelinhas; i++) {
+            pulaLinha += "\n";
+        }
+
+        System.out.print("\n"+this.historicoDeOperacoes.get(this.historicoDeOperacoes.size() -1) + pulaLinha);
     }
 }
