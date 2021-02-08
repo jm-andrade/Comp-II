@@ -1,0 +1,74 @@
+Resumo de Comp 2
+
+Laboratório 4 - Album 
+
+- Classe AlbumTeste 
+
+* private album<figurinha> albumDeFigurinha
+
+// significa dizer que e um atributo  privado do tipo album, que é uma lista  do tipo figurinha
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+* private static final int TAMANHO_DO_ALBUM = 200;
+
+// static modifica um atributo, sendo assim todas as instancias daquele objeto poderá visualiar o mesmo valor para aquele atributo. Final cria uma constante ,ou seja, quando é declarado o valor não poderá ser alterado.
+
+OBs: Diferença entre o CONST e FINAL basicamente a diferença entre o const e o final é que o const 
+precisa atribuir o valor na declaração, enquanto que no FINAL não necessário.
+////////////////////////////////////////////////////////////////////////////
+
+* public void setUp() {
+//  inicializa o teste 
+}
+/////////////////////////////////////////
+
+* assertTrue("Figurinhas já inseridas devem ser encontradas", assertEquals(TAMANHO_DO_ALBUM, this.albumFigurinhas.getTamanho())
+
+// compara o primeiro parametro com o segundo, caso sejam iguais retorna true e o teste passa.
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+* assertEquals(TAMANHO_DO_ALBUM, this.albumFigurinhas.getTamanho())
+
+// compara o primeiro valor com o segundo, sendo o primeiro  valor o esperado e o segundo o valor real. Caso sejam igyais o teste passa.
+------------------------------------------------------------------------------------------------------
+
+- Classe Album
+
+*public class Album<T extends Colecionavel> {  // generic type
+
+// T é um tipo generico  da classe que extende da classe colecionavel, pode ser figurinha ou selo.
+-----------------------------------------------------------------------------------------------------------
+
+- interface
+
+Podemos entender uma interface como um instancia de um metodo que fica entre duas classes, exemplo dado um sistema bancário onde temos duas classes gerente e diretor extendendo da classe funcionário, e temos que autenticar os mesmos. Uma solução viável seria criar uma interface autenticável que  terá o método autentica e 
+receberá a senha, isto é entre as classes. Sendo assum cada método  implementará a  sua devida autenticação .
+
+--------------------------------------------------------------------------------------------------------------
+- Diferença entre os modificadoes de acesso 
+
+* Public - pode ser acessado de qualque instancia de qualquer classe;
+* Private - Só pode ser acessado por uma instancia da classe;
+* Protected - Pode ser acessado por qualquer instancia da quela classe;
+
+---------------------------------------------------------------------------------------------------------------
+- Classe abstrata 
+
+* Serve como base para outras classes;
+* Não poderá ser instanciada;
+
+// como exemplo de uso de classe abstrata temos a classe funcionário que serve como base para, gerente e secretário  que herdam de um funcionário. Sendo assim todo gerente possui os atributos e métodos de um funcionário e não é funcuonal intanciar u funcionário.
+---------------------------------------------------------------------------
+- Métodos abstratos 
+
+* Só declaramos o escopo o corpo do método fica vazio;
+* O corpo sera inscrito pela classe filha;
+
+// exemplo um método abstrato getBonificacao() pertence a classe funcionário, sendo assim o gerente e o secretário pode rescrever esse método conforme suas respectivas bonificações.
+
+
+ 
+
+
