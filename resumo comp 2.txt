@@ -68,7 +68,36 @@ receberá a senha, isto é entre as classes. Sendo assum cada método  implement
 
 // exemplo um método abstrato getBonificacao() pertence a classe funcionário, sendo assim o gerente e o secretário pode rescrever esse método conforme suas respectivas bonificações.
 
+//////////////////////////////////////////////////////////////////////////////
 
- 
+- Métodos Hash 
 
+* Map - usado como um mapa, uma chave sempre correspomde a um valor;
+** Exemplo de um mapa usado para armazenar a quantidade de produdos vendáveis;
 
+	private Map<Vendavel, Integer> quantidadeEmEstoquePorItem;
+
+// para manipular usamos put para atribuição e get para retorno;
+
+	put(vendavel: chave, valor: quantidade); // Atribui o valor respectivo a chave;
+	get(vendavel: Chave); // Retorna o valor respectivo a chave;
+
+- Método Hashset();
+
+* O método set pode ser entendido como uma lista, porém com atribuição e retorno de valores mais rapido. 
+// Dado um programa que recebe duas listas e procura a quantidade de interseção entre as duas, podemos /// usar Hashset();
+
+	Set<T> conjuntoReferenteALista2 = new HashSet<>(); // Declaração;
+
+	//Teste da interseção
+        for (T elementoDaLista2 : lista2) {
+            conjuntoReferenteALista2.add(elementoDaLista2);
+        }
+
+        for (T elementoDaLista1 : lista1) {
+            if (conjuntoReferenteALista2.contains(elementoDaLista1)) {
+                cont++;
+            }
+        }
+
+        return cont;
