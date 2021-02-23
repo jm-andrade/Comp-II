@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Livro extends ArtigoCultural {
 
     private final int codigoISBN;
@@ -9,11 +11,12 @@ public class Livro extends ArtigoCultural {
     private String editora;
 
     private int anoPublicacao;
+    private Categoria categoria;
 
     private int numeroDePaginas;
 
     public Livro(int codigoISBN,
-                 String titulo, String autor, String editora, int anoPublicacao) {
+                 String titulo, String autor, String editora, int anoPublicacao, Categoria categoria) {
 
         super(codigoISBN,
                 String.format("Livro: %s (%s, %d)",
@@ -24,6 +27,14 @@ public class Livro extends ArtigoCultural {
         this.autor = autor;
         this.editora = editora;
         this.anoPublicacao = anoPublicacao;
+        this.categoria = categoria;
+    }
+
+    public String getCategoria () {return this.categoria.getCodigo();
+
+    }
+    public  void  setCategoria(Categoria categoria){ this.categoria = categoria;
+
     }
 
     public int getCodigoISBN() {
@@ -69,4 +80,30 @@ public class Livro extends ArtigoCultural {
     public void setNumeroDePaginas(int numeroDePaginas) {
         this.numeroDePaginas = numeroDePaginas;
     }
+
+    @Override
+    public String toString() {
+        return "Código ISBN: " + getCodigoISBN() +
+                "\nTítulo: " + getTitulo() +
+                "\nAutor: " + getAutor() +
+                "\nEditora: " + getEditora() +
+                "\nAno de publicação: " + getAnoPublicacao() +
+                "\nNúmero de páginas: " + getNumeroDePaginas() +
+                "\nCategoria: " + getCategoria();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Livro livro1 = (Livro) o;
+
+        return Objects.equals(this.codigoISBN, livro1.codigoISBN) &&
+                Objects.equals(this.categoria, livro1.categoria);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigoISBN, categoria);
+    }
+
 }

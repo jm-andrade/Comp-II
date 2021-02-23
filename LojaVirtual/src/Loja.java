@@ -53,8 +53,20 @@ public class Loja {
         if (usuario.getEndereco() == null) {
             throw new RuntimeException("Endereço inválido");
         }
+
+        float precoTotal;
         // calculando o preço
-        float precoTotal = quantidade * item.getPrecoEmReais();
+        if (item instanceof Livro && quantidade >= 3) {
+            Livro livro = (Livro) item;
+
+            // verifica se a categoria do livro é "Livro  didatico" e adiciona um desconto
+            if(livro.getCategoria().equals("LD")){
+                float desconto = livro.getPrecoEmReais() * quantidade * 0.2f;
+                precoTotal = (quantidade * livro.getPrecoEmReais()) - desconto;
+            }
+            else precoTotal = quantidade * item.getPrecoEmReais();;
+        }
+        else precoTotal = quantidade * item.getPrecoEmReais();
 
         if (!processarPagamento(precoTotal)) {
             // ToDo lançar uma exceção específica
